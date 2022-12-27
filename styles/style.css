@@ -2,6 +2,8 @@
 box-sizing: border-box;
 font-family: 'Roboto', sans-serif;
 font-weight: bold;
+margin: 0;
+padding: 0;
 }
 
 body {
@@ -15,4 +17,47 @@ background: linear-gradient(to left, rgb(0, 48, 159), rgb(0, 49, 75));
     min-height: 100vh;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+}
+
+.gridContainer > button {
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid #111;
+    outline: none;
+    background-color: rgb(38, 38, 38);
+    color: rgb(195, 199, 251);
+}
+
+.gridContainer > .operator {
+     background-color: rgb(42, 69, 132);
+}
+
+.gridContainer > .equal {
+    background-color: rgb(1, 45, 147);
+}
+
+.spanTwo {
+    grid-column: span 2;
+}
+
+.gridContainer > .output {
+    grid-column: 1/-1;
+    background-color: rgb(50, 50, 50);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.gridContainer > .output > .previousOperand {
+    color: rgb(185, 185, 185);
+    font-size: 1.5rem;
+}
+
+.gridContainer > .output > .currentOperand {
+    color: rgb(239, 239, 239);
+    font-size: 2.5rem;
 }
