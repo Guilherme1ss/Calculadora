@@ -1,0 +1,18 @@
+*{
+box-sizing: border-box;
+font-family: 'Roboto', sans-serif;
+font-weight: bold;
+}
+
+body {
+background: linear-gradient(to left, rgb(0, 48, 159), rgb(0, 49, 75));
+}
+
+.gridContainer {
+    display: grid;
+    justify-content: center; 
+    align-content: center;
+    min-height: 100vh;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+}
