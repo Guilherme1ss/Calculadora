@@ -17,12 +17,45 @@ class Calculator { //Classe principal com funções da calculadora.
     this.clear()
   }
 
+delete() {
+  this.currentOperand = this.currentOperand.toString().slice(0, -1);
+}
+
+calculate () {
+  let result;
+
+  const previousOperandFloat = parseFloat(this.previousOperand)
+  const currentOperandFloat = parseFloat(this.currentOperand)
+
+  if (isNaN(previousOperandFloat) || isNaN(currentOperandFloat)) return;
+
+  switch (this.operation) {
+    case '+':
+      result = previousOperandFloat + currentOperandFloat;
+      break;
+    case '-':
+      result = previousOperandFloat - currentOperandFloat;
+      break;
+    case '÷':
+      result = previousOperandFloat / currentOperandFloat;
+      break;
+    case 'x':
+      result = previousOperandFloat * currentOperandFloat;
+      break;
+    default:
+    return;
+  }
+  this.currentOperand = result;
+  this.operation = undefined;
+  this.previousOperand = "";
+}
+
 chooseOperation(operation) {
   if(this.previousOperand != '') {
     this.calculate()
   }
   this.operation = operation;
-  this.previousOperand = `${this.currentOperand} ${this.operation}`; //Concatena o número com o sinal de operação
+  this.previousOperand = this.currentOperand;
   this.currentOperand = "";
 }
 
@@ -38,7 +71,7 @@ this.currentOperand = `${this.currentOperand}${number.toString()}`;
   }
 
   updateDisplay() { //Atualiza o display através dos elementos HTML
-    this.previousOperandTextElement.innerText = this.previousOperand;
+    this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation || ""}`;
     this.currentOperandTextElement.innerText = this.currentOperand;
   }
 }
@@ -66,3 +99,13 @@ allClearButton.addEventListener("click", () => { //Determina função do botão 
   calculator.clear();
   calculator.updateDisplay();
 });
+
+equalButton.addEventListener('click', () => {
+  calculator.calculate();
+  calculator.updateDisplay();
+})
+
+deleteButton.addEventListener('click', () => {
+  calculator.delete();
+  calculator.updateDisplay();
+})
