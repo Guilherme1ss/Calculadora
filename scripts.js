@@ -1,6 +1,6 @@
 const numberButtons = document.querySelectorAll("[data-number]");
 const operationButtons = document.querySelectorAll("[data-operator]");
-const equalButton = document.querySelector("[data-equal]");
+const equalsButton = document.querySelector("[data-equals]");
 const deleteButton = document.querySelector("[data-delete]");
 const allClearButton = document.querySelector("[data-all-clear]");
 const previousOperandTextElement = document.querySelector(
@@ -28,13 +28,13 @@ class Calculator { //Classe principal com funções da calculadora.
     if (isNaN(integerDigits)) {
       integerDisplay = "";
     } else {
-      integerDisplay = integerDigits.toLocaleString('', {
+      integerDisplay = integerDigits.toLocaleString("en", {
         maximumFractionDigits: 0,
       });
     }
 
     if (decimalDigits != null) {
-      return `${integerDisplay},${decimalDigits}`
+      return `${integerDisplay}.${decimalDigits}`
     } else {
       return integerDisplay;
     }
@@ -124,7 +124,7 @@ allClearButton.addEventListener("click", () => { //Determina função do botão 
   calculator.updateDisplay();
 });
 
-equalButton.addEventListener('click', () => {
+equalsButton.addEventListener('click', () => {
   calculator.calculate();
   calculator.updateDisplay();
 })
