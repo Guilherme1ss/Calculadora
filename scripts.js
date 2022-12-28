@@ -17,6 +17,29 @@ class Calculator { //Classe principal com funções da calculadora.
     this.clear()
   }
 
+  formatDisplayNumber(number) {
+    const stringNumber = number.toString();
+
+    const integerDigits = parseFloat(stringNumber.split(".")[0]);
+    const decimalDigits = stringNumber.split(".")[1];
+
+    let integerDisplay;
+
+    if (isNaN(integerDigits)) {
+      integerDisplay = "";
+    } else {
+      integerDisplay = integerDigits.toLocaleString('', {
+        maximumFractionDigits: 0,
+      });
+    }
+
+    if (decimalDigits != null) {
+      return `${integerDisplay},${decimalDigits}`
+    } else {
+      return integerDisplay;
+    }
+  }
+
 delete() {
   this.currentOperand = this.currentOperand.toString().slice(0, -1);
 }
@@ -24,8 +47,8 @@ delete() {
 calculate () {
   let result;
 
-  const previousOperandFloat = parseFloat(this.previousOperand)
-  const currentOperandFloat = parseFloat(this.currentOperand)
+  const previousOperandFloat = parseFloat(this.previousOperand);
+  const currentOperandFloat = parseFloat(this.currentOperand);
 
   if (isNaN(previousOperandFloat) || isNaN(currentOperandFloat)) return;
 
@@ -51,7 +74,8 @@ calculate () {
 }
 
 chooseOperation(operation) {
-  if(this.previousOperand != '') {
+  if(this.currentOperand === "") return;
+  if(this.previousOperand !== '') {
     this.calculate()
   }
   this.operation = operation;
@@ -60,7 +84,7 @@ chooseOperation(operation) {
 }
 
   appendNumber(number) {
-    if (this.currentOperand.includes(',') && number == ",") return; //Impede usuário de inserir mais de uma vírgula na operação.
+    if (this.currentOperand.includes(".") && number === ".") return; //Impede usuário de inserir mais de uma vírgula na operação.
 this.currentOperand = `${this.currentOperand}${number.toString()}`;
   }
   
@@ -71,8 +95,8 @@ this.currentOperand = `${this.currentOperand}${number.toString()}`;
   }
 
   updateDisplay() { //Atualiza o display através dos elementos HTML
-    this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation || ""}`;
-    this.currentOperandTextElement.innerText = this.currentOperand;
+    this.previousOperandTextElement.innerText = `${this.formatDisplayNumber(this.previousOperand)} ${this.operation || ""}`;
+    this.currentOperandTextElement.innerText = this.formatDisplayNumber(this.currentOperand);
   }
 }
 
